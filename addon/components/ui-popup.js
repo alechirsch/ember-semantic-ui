@@ -28,6 +28,13 @@ export default Ember.Component.extend({
   title: '',
   variation: '',
   /**
+   * Whether all other popups should be hidden when this popup is opened
+   * @default  false
+   */
+  exclusive: false,
+  
+  movePopup: true,
+  /**
    * Event used to trigger popup: focus, click, hover, or manual
    *
    * @property {Ember.String} event
@@ -59,7 +66,7 @@ export default Ember.Component.extend({
    */
   duration: 200,
   delayShow: 50,
-  delayHide: 30, 
+  delayHide: 30,
   preserve: false,
   lastResort: false,
   didUpdateAttrs(){
@@ -97,6 +104,7 @@ export default Ember.Component.extend({
           content: self.content,
           duration: self.duration,
           position: self.position,
+          transition: self.transition,
           lastResort: self.lastResort,
           delay: {
             show: self.delayShow,
