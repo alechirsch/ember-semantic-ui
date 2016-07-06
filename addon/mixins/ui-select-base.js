@@ -13,7 +13,7 @@ export default Ember.Mixin.create({
     tagName: 'div',
 
     /**
-     * value  for the select 
+     * value  for the select
      *
      * @property {String} value
      */
@@ -97,7 +97,7 @@ export default Ember.Mixin.create({
     _value: null,
 
     /**
-     * selected items to 
+     * selected items to
      *
      * @property {String} _selectedOptions
      */
@@ -107,7 +107,7 @@ export default Ember.Mixin.create({
         this.renderDropDown();
     },
     /**
-     * @method setupOptions 
+     * @method setupOptions
      * @observes "options" property
      * @returns  {void}
      */
@@ -122,7 +122,8 @@ export default Ember.Mixin.create({
                 let obj = Ember.Object.create({
                     'label': label,
                     'value': String(value),
-                    'selected': checked
+                    'selected': checked,
+                    'data': item
                 });
                 if (checked) {
                     this._selectedOptions.pushObject(obj);
