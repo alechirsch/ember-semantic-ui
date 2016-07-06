@@ -6,15 +6,35 @@ import layout from '../templates/components/ui-uploader';
 
 const {get, set, computed} = Ember;
 
+/**
+ui-uploader component
+
+@module components
+@namespace components
+@class UiUploader
+@constructor
+*/
 export default Ember.Component.extend({
     layout: layout,
+    /**
+     * file request ajax setting traditional, by default true
+     * @property {boolean} traditional
+     * 
+     */
+    traditional: true,
     actions: {
+        /** 
+        activate upload action
+        @event start
+        @param {Object} obj fileInput instance see {{#crossLink " fileInput"}}{{/crossLink}}
+        **/
         start: function(obj) {
             let url = this.get('url'),
                 self = this;
 
             obj.uploader = emberUploader.create({
-                url: url
+                url: url,
+                traditional: self.get('traditional')
             });
 
             obj.uploadPromise = obj.uploader.upload(obj.fileToUpload, this.params);
@@ -34,6 +54,11 @@ export default Ember.Component.extend({
                 self.sendAction('uploadSuccess', obj);
             });
         },
+        /** 
+        deactivate upload action
+        @event abort
+        @param {Object} obj fileInput instance see {{#crossLink " fileInput"}}{{/crossLink}}
+        **/
         abort: function(obj) {
             this.sendAction('uploadAbort', obj);
             if (obj.uploader) {
@@ -48,6 +73,11 @@ export default Ember.Component.extend({
                 this.get('queue').removeObject(obj);
             }
         },
+        /** 
+        delete file from queue
+        @event 
+        @param {Object} obj fileInput instance see {{#crossLink " fileInput"}}{{/crossLink}}
+        **/
         deleteFile: function(obj) {
             this.get('queue').removeObject(obj);
             this.sendAction('deleteFile', obj);
@@ -56,7 +86,8 @@ export default Ember.Component.extend({
     /**
      * The upload url
      *
-     * @property {Ember.String} url
+     * @property url
+     * @type String
      * @default  ""
      */
     url: '',
@@ -64,7 +95,8 @@ export default Ember.Component.extend({
     /**
      * The root component element
      *
-     * @property {Ember.String} tagName
+     * @property tagName
+     * @type String
      * @default  "div"
      */
     tagName: 'div',
@@ -72,23 +104,26 @@ export default Ember.Component.extend({
     /**
      * A array contain class names apply to root element
      *
-     * @property {Ember.Array} classNames
-     * @default  ""
+     * @property classNames
+     * @type Array
+     * @default  ['ui', 'segment']
      */
     classNames: ['ui', 'segment'],
 
     /**
-     * To  allow  file autoUpload
+     * To allow  file autoUpload
      *
-     * @property {Ember.Boolean} forceIframeTransport
-     * @default  false
+     * @property autoUpload
+     * @type boolean
+     * @default  true
      */
     autoUpload: true,
 
     /**
      * upload file queue
      *
-     * @property {Ember.Array} queue
+     * @property queue
+     * @type Array
      * @default  []
      */
     queue: null,
@@ -96,15 +131,17 @@ export default Ember.Component.extend({
     /**
      * upload multiple file
      *
-     * @property {Ember.Boolean} multiple
-     * @default  []
+     * @property  multiple
+     * @type boolean
+     * @default  false
      */
     multiple: false,
 
     /**
      * extra params
      *
-     * @property {Ember.Object} params
+     * @property params
+     * @type params
      * @default  null
      */
     params: null,
@@ -112,13 +149,14 @@ export default Ember.Component.extend({
     /**
      * file accept
      *
-     * @property {Ember.Object} accept
+     * @property accept
+     * @type String
      * @default  null
      */
     accept: 'audio/*,video/*,image/*',
 
     /**
-     * @function initialize
+     * @method didInsertElement
      * @observes "didInsertElement" event
      * @returns  {void}
      */

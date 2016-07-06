@@ -1,0 +1,19 @@
+{
+  "name": "ember-semantic-ui",
+  "description": "Ember ui components based on semantic-ui",
+  "version": "0.1.0",
+  "options": {
+    "paths": [
+      "addon"
+    ],
+    "enabledEnvironments": ["development", "production"],
+    "exclude": "vendor",
+    "outdir": "docs",
+    "linkNatives": true,
+    "quiet": true,
+    "parseOnly": false,
+    "lint": false,
+    "themedir" : "node_modules/yuidoc-ember-cli-theme",
+    "helpers" : ["node_modules/yuidoc-ember-cli-theme/helpers.js"]
+  }
+}

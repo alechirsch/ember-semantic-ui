@@ -6,16 +6,52 @@ import Ember from 'ember';
 var get = Ember.get,
     set = Ember.set;
 
+
+/**
+EmberUploader class
+
+@module utils
+@namespace utils
+@class EmberUploader
+@constructor
+*/
 export default Ember.Object.extend(Ember.Evented, {
+  /**
+     * upload url
+     * 
+     * @property {String} url
+     * 
+  */
   url: null,
   paramNamespace: null,
+  /**
+   * upload file parameter name
+   *
+   * @property {String} paramName
+   * @default 'file'
+  */
   paramName: 'file',
+  /**
+   * ajax request settings traditional, by default false
+   *
+   * @property {Boolean} traditional
+   * @default true
+   */
+  traditional: true,
+
+  /**
+   * ajax request status
+   *
+   * @property {Boolean} isUploading
+   * @default false
+   */
   isUploading: false,
 
   /**
    * ajax request type (method), by default it will be POST
    *
-   * @property type
+   * @property {String} type
+   * @default 'POST'
    */
   type: 'POST',
 
@@ -52,7 +88,11 @@ export default Ember.Object.extend(Ember.Evented, {
       var paramName;
 
       for (var i = files.length - 1; i >= 0; i--) {
-        paramName = this.toNamespacedParam(this.paramName) + '[' + i + ']';
+        if(get(this, 'traditional')){
+          paramName = this.toNamespacedParam(this.paramName);
+        }else {
+          paramName = this.toNamespacedParam(this.paramName) + '[' + i + ']';
+        }
         formData.append(paramName , files[i]);
       }
     } else {
@@ -117,7 +157,7 @@ export default Ember.Object.extend(Ember.Evented, {
       type: method || 'POST',
       contentType: false,
       processData: false,
-      traditional: true,
+      traditional: get(self, 'traditional'),
       dataType: 'json',
       xhr: function() {
         var xhr = Ember.$.ajaxSettings.xhr();

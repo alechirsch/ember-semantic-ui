@@ -8,6 +8,15 @@ const {
     bool
 } = computed;
 
+
+/**
+ui-checkbox-base mixinx
+
+@module mixins
+@namespace mixins
+@class UiCheckboxGroupBase
+@constructor
+*/
 export default Ember.Mixin.create({
     /**
      * The root component element
