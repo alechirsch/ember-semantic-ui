@@ -17,13 +17,13 @@ ui-date-input component
 
 @module components
 @namespace components
-@class UiDateInput 
+@class UiDateInput
 @constructor
 */
 export default Ember.Component.extend({
     layout: layout,
     /**
-    display language, by default is zh_CN 
+    display language, by default is zh_CN
     @property {String} lang
     @default 'zh_CN'
     */
@@ -47,7 +47,16 @@ export default Ember.Component.extend({
                     self.attrs.update(this.getMoment().format(self.format));
                 }
             }
+        };
+
+        if (self.minDate) {
+          options.minDate = self.minDate;
         }
+
+        if (self.maxDate) {
+          options.maxDate = self.maxDate;
+        }
+
         if(self.lang == 'zh_CN'){
             options.i18n = zh_cn;
         }
