@@ -115,10 +115,12 @@ export default Ember.Mixin.create({
         if (this.options) {
             this._options.clear();
             for (var i = 0; i < this.options.length; i++) {
+
                 let item = this.options[i];
-                let label = item[this.get('labelPath')];
-                let value = item[this.get('valuePath')];
+                let label = Ember.get(item, this.get('labelPath'));
+                let value = Ember.get(item, this.get('valuePath'));
                 let checked = this.isOptionChecked(value);
+
                 let obj = Ember.Object.create({
                     'label': label,
                     'value': String(value),
