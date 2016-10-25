@@ -94,6 +94,7 @@ export default Ember.Component.extend({
             closable = this.get('closable');
 
 		this.$().modal({
+            allowMultiple: true,
             closable: closable,
             observeChanges: true,
 			onHide(){
