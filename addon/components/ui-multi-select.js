@@ -30,6 +30,9 @@ export default Ember.Component.extend(UiSelectBase, {
     renderDropDown() {
         let that = this;
         this.$().dropdown({
+
+            allowAdditions: true,
+            hideAdditions: false,
             onAdd: function(addedValue, addedText, $addedChoice) {
                 for (var i = 0; i < that._options.length; i++) {
                     let item = that._options[i];

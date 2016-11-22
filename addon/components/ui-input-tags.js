@@ -67,7 +67,8 @@ export default Ember.Component.extend({
             this.attrs.update(this.get('value'));
         }
     },
-    didInitAttrs(){
+    init(){
+        this._super(...arguments);
         //if value do not be passed to component
         if(this.value === undefined){
             this.set('value', Ember.A());
